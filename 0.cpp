@@ -111,16 +111,4 @@ int main() {
 	FreeTree(root);
 	cout << endl;
 	system("pause");
-	// TREE:
-	//    *
-	//     \
-	//      *
-	//     |
-	//    *
-	//     \
-	//      *
-	//     |
-	//    *
-	//     \
-	//      *
 }
