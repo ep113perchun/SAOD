@@ -4,55 +4,44 @@ using namespace std;
 
 struct Vertex
 {
+	int iD;
 	int data;
 	Vertex* left;
 	Vertex* right;
 };
 
-Vertex* getTree(){
-	Vertex* head, *p;
-	head = new Vertex;
-	head->data = 15;
-	head->left = head->right = NULL;
-	p = new Vertex;
-	p->data = 8;
-	p->left = NULL;
-	p->right = head;
-	head = p;
-	p = new Vertex;
-	p->data = 17;
-	p->right = NULL;
-	p->left = head;
-	head = p;
-	p = new Vertex;
-	p->data = 6;
-	p->left = NULL;
-	p->right = head;
-	head = p;
-	p = new Vertex;
-	p->data = 20;
-	p->right = NULL;
-	p->left = head;
-	head = p;
-	p = new Vertex;
-	p->data = 3;
-	p->left = NULL;
-	p->right = head;
-	head = p;
-	return head;
+struct Vertex* addtree(int datatree, int iD){
+	struct Vertex *p;
+  	p=new Vertex;
+  	p->iD= iD;
+  	p->data=datatree;
+  	p->left=NULL;
+  	p->right=NULL;
+  	return p;
+	
+}
+
+Vertex* tree(){
+	Vertex *p=addtree(25,1);
+	p->left=addtree(20,2);
+	p->left->left=addtree(15,3);
+	p->left->right=addtree(23,4);
+    p->left->left->right=addtree(16,5);
+	p->left->left->right->right=addtree(17,6);
+    return p;
 }
 
 void PrintTree_Left_Right(Vertex* p) {
 	if (p != NULL) {
 		PrintTree_Left_Right(p->left);
-		cout << p->data << " ";
+		cout << "(" << p->iD << ")" << p->data << " ";
 		PrintTree_Left_Right(p->right);
 	}
 }
 
 void PrintTree_Up_Down(Vertex* p) {
 	if (p != NULL) {
-		cout << p->data << " ";
+		cout << "(" << p->iD << ")" << p->data << " ";
 		PrintTree_Up_Down(p->left);
 		PrintTree_Up_Down(p->right);
 	}
@@ -62,7 +51,7 @@ void PrintTree_Down_Up(Vertex* p) {
 	if (p != NULL) {
 		PrintTree_Down_Up(p->left);
 		PrintTree_Down_Up(p->right);
-		cout << p->data << " ";
+		cout << "(" << p->iD << ")" << p->data << " ";
 	}
 }
 
@@ -97,7 +86,7 @@ void FreeTree(Vertex* tree) {
 }
 
 int main() {
-	Vertex* root = getTree();
+	Vertex* root = tree();
 	cout << "Obhod Left-Right:" << endl;
 	PrintTree_Left_Right(root);
 	cout << "\n\nObhod Up-Down:" << endl;
@@ -110,5 +99,4 @@ int main() {
 	cout << "SrHeight: " << ((float)SumOfPathLengths(root, 1))/TreeSize(root) << endl;
 	FreeTree(root);
 	cout << endl;
-	system("pause");
 }
