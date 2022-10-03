@@ -14,8 +14,7 @@ struct Vertex
 };
 
 void FillInc (int* Arr, int n){
-    int i;
-    for (i=0; i<n; i++){
+    for (int i = 0; i < n; i ++){
         Arr[i]=i+1;
     }
 }
