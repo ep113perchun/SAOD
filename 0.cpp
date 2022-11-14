@@ -22,12 +22,12 @@ struct Vertex* addtree(int datatree, int iD){
 }
 
 Vertex* tree(){
-	Vertex *p=addtree(25,1);
-	p->left=addtree(20,2);
-	p->left->left=addtree(15,3);
-	p->left->right=addtree(23,4);
-    p->left->left->right=addtree(16,5);
-	p->left->left->right->right=addtree(17,6);
+	Vertex *p=addtree(5,1);
+	p->left=addtree(4,2);
+	p->right=addtree(8,3);
+	p->left->left=addtree(3,4);
+    p->right->left=addtree(7,5);
+	p->right->right=addtree(9,6);
     return p;
 }
 

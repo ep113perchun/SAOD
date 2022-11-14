@@ -14,11 +14,20 @@ struct Vertex
 	Vertex* right;
 };
 
-void FillRand(int* Arr, int n) {
-	int i;
-	for (i = 0; i < n; i++) {
-		Arr[i] = rand() % 201 - 100;
-	}
+void GenMas(int* Arr){
+  int* Rand = new int[1000];
+  for (int i = 0; i < 1000; i++) {
+    Rand[i] = i;
+  }
+    for (int j = 0; j < 100; j++) {
+      int i = rand() % 1000;
+      while (Rand[i] == 0) {
+          i = i + 1;
+          if (i == 1000) i = 0;
+      }
+  Arr[j] = Rand[i];
+  Rand[i] = 0;
+    }
 }
 
 void FillInc(int* Arr, int n) {
@@ -42,7 +51,7 @@ Vertex* ISDP(int *A, int L, int R, int& num) {
 	}
 }
 
-void SDP(int D, Vertex*& root, int& num) {
+void SDP(int D, Vertex*& root, int& num) { //двойная косвенность 
 	Vertex** p = &root;
 	while ((*p) != NULL) {
 		if (D < (*p)->data) p = &((*p)->left);
@@ -57,7 +66,7 @@ void SDP(int D, Vertex*& root, int& num) {
 	}
 }
 
-void SDP2(int D, Vertex*& p, int& num) {
+void SDP2(int D, Vertex*& p, int& num) { //рекурсия
 	if (p == NULL) {
 		p = new Vertex;
 		p->data = D;
@@ -106,7 +115,7 @@ void FreeTree(Vertex* tree) {
 	delete tree;
 }
 
-void Table(Vertex* a, Vertex* b) {
+void Table(Vertex* a, Vertex* b, Vertex* c) {
 	int i;
 	cout << "\n\n";
 	cout << "\n|------|-----|------|----|------|";
@@ -117,6 +126,10 @@ void Table(Vertex* a, Vertex* b) {
 	cout << "\n|      |     |      |    |      |";
 	printf("\n|%-6s| %-4d| %-5d| %-3d| %-5.2f|", " SDP", TreeSize(a), CheckSumTree(a), TreeHeight(a), ((float)SumOfPathLengths(a, 1)) / TreeSize(a));
 	cout << "\n|      |     |      |    |      |";
+	cout << "\n|------|-----|------|----|------|";
+	cout << "\n|      |     |      |    |      |";
+	printf("\n|%-6s| %-4d| %-5d| %-3d| %-5.2f|", " SDP", TreeSize(c), CheckSumTree(c), TreeHeight(c), ((float)SumOfPathLengths(c, 1)) / TreeSize(c));
+	cout << "\n|      |     |      |    |      |";
 	cout << "\n|------|-----|------|----|------|\n\n";
 }
 
@@ -124,7 +137,7 @@ int main() {
 	srand(time(NULL));
 	int* Arr = new int[N];
 	int* Arr2 = new int[N];
-	FillRand(Arr, N);
+	GenMas(Arr);
 	FillInc(Arr2, N);
 	int i, num = 1;
 	Vertex* root = NULL, *root2 = NULL, *root3 = NULL;
@@ -132,7 +145,7 @@ int main() {
 		SDP(Arr[i], root, num);
 	}
 	num = 1;
-	FillRand(Arr, N);
+	GenMas(Arr);
 	for (i = 0; i < N; i++) {
 		SDP2(Arr[i], root2, num);
 	}
@@ -142,12 +155,11 @@ int main() {
 	PrintTree_Left_Right(root2);
 	num = 1;
 	root3 = ISDP(Arr2, 0, N - 1, num);
-	Table(root, root3);
+	Table(root, root3, root2);
 	delete[] Arr;
 	delete[] Arr2;
 	FreeTree(root);
 	FreeTree(root2);
 	FreeTree(root3);
-	system("pause");
 	return 0;
 }

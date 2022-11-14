@@ -89,7 +89,7 @@ int main() {
 	FillInc(Arr, N);
 	root = ISDP(Arr, 0, N - 1, num);
 	PrintTree_Left_Right(root);
-	cout << "\n\n\nSums: \t" << CheckSum(Arr, N) << "\t" << CheckSumTree(root) << "\n\n\n";
+	cout << "\n\n\nSums: \t" << "Arr: " << CheckSum(Arr, N) << "\t" << "root: " << CheckSumTree(root) << "\n\n\n";
 	cout << "Size: \t" << TreeSize(root) << "\n\n\n";
 	cout << "Height:\t" << TreeHeight(root) << "\n\n\n";
 	cout << "SrHeight: " << ((float)SumOfPathLengths(root, 1))/TreeSize(root) << endl;
